@@ -12,7 +12,7 @@ import { ItemCard } from '@/components/ItemCard';
 const CustomizationModal = dynamic(() => import('@/components/CustomizationModal').then(mod => ({ default: mod.CustomizationModal })), { ssr: false });
 const CartDrawer = dynamic(() => import('@/components/CartDrawer').then(mod => ({ default: mod.CartDrawer })), { ssr: false });
 
-export default function GuestMenu() {
+function GuestMenu() {
   const searchParams = useSearchParams();
   const [tableNumber, setTableNumber] = useState(searchParams.get('table') || '7');
   
@@ -547,5 +547,13 @@ export default function GuestMenu() {
         onTableChange={setTableNumber}
       />
     </main>
+  );
+}
+
+export default function Page() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-[#0a0a0a]" />}>
+      <GuestMenu />
+    </React.Suspense>
   );
 }
